@@ -1,2 +1,2 @@
 # Typescript RESTful APIs
-Build using NestJs
+Built using NestJs
