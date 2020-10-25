@@ -1,15 +1,20 @@
 import { Body, Injectable,Param } from '@nestjs/common';
-
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { UserInterface } from './model_interfaces/user.interface';
 @Injectable()
 export class UsersService {
-    getAllUsers():string{
-        return 'all users';
+
+    constructor(@InjectModel('User') private readonly userModel:Model<UserInterface>){}
+
+    async getAllUsers():Promise<UserInterface>{
+        return await this.userModel.find();
     }
-    getUser(userid:number){
-        return `User ${userid}`;
+    async getUser(userid:number):Promise<UserInterface>{
+        return await this.userModel.findOne({ _id: userid});
     }
-    addUser(username:string){
-        return `User ${username} created!`;
+    async addUser(username:string){
+        return 'test';
     }
     deleteUser(userid:number){
         return `User ${userid} deleted!`;
